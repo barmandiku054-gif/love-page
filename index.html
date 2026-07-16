@@ -3,602 +3,537 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For You ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>To The Girl Who Makes My Heart Smile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --soft-pink: #ffd1dc;
-            --lavender: #e6e6fa;
-            --peach: #ffdab9;
+            --soft-pink: #f9d5e5;
             --rose-gold: #b76e79;
             --white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.2);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-main: #5a4b56;
-            --glow: 0 0 20px rgba(255, 255, 255, 0.8);
-            --neon-pink: 0 0 15px rgba(255, 182, 193, 0.8);
+            --lavender: #e2d8ee;
+            --peach: #ffdab9;
+            --sunset-orange: #ffa07a;
+            --text-dark: #4a3b42;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glow: 0 0 20px rgba(255, 255, 255, 0.6);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Poppins', sans-serif;
-            color: var(--text-main);
+            color: var(--text-dark);
             overflow: hidden;
             width: 100vw;
             height: 100vh;
-            background-color: var(--soft-pink);
-            position: relative;
+            background: linear-gradient(45deg, var(--soft-pink), var(--lavender), var(--peach), var(--sunset-orange));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* --- Background Effects --- */
-        #bg-gradient {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 50%, #fbc2eb 100%);
-            background-size: 300% 300%;
-            animation: gradientShift 12s ease infinite;
-            z-index: -10;
-        }
+        /* Background Effects */
+        #bg-effects { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .aurora { position: absolute; width: 200vw; height: 200vh; top: -50%; left: -50%; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4), transparent 60%); mix-blend-mode: overlay; animation: pulseAurora 10s infinite alternate; }
+        @keyframes pulseAurora { 0% { transform: scale(1) translate(0, 0); opacity: 0.5; } 100% { transform: scale(1.2) translate(5%, 5%); opacity: 0.9; } }
 
-        .aurora {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4), transparent 60%);
-            mix-blend-mode: overlay;
-            z-index: -9;
-            animation: pulseAurora 8s infinite alternate;
-        }
-
-        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes pulseAurora { 0% { opacity: 0.5; transform: scale(1); } 100% { opacity: 1; transform: scale(1.1); } }
-
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            z-index: -8;
-            animation: floatBlob 20s infinite alternate ease-in-out;
-        }
-        .blob-1 { width: 40vw; height: 40vw; background: var(--lavender); top: -10%; left: -10%; }
-        .blob-2 { width: 50vw; height: 50vw; background: var(--peach); bottom: -10%; right: -10%; animation-delay: -5s; }
-
-        @keyframes floatBlob { 100% { transform: translate(15vw, 15vh) scale(1.2); } }
-
-        /* Particles container */
-        #particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .particle { position: absolute; pointer-events: none; animation: floatUp linear forwards; will-change: transform; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8)); }
+        @keyframes floatUp { 0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; } }
         
-        .particle {
-            position: absolute;
-            pointer-events: none;
-            animation: floatUp linear forwards;
-            will-change: transform, opacity;
-        }
-        @keyframes floatUp { 0% { transform: translateY(110vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+        .cursor-sparkle { position: absolute; width: 6px; height: 6px; background: white; border-radius: 50%; pointer-events: none; box-shadow: var(--glow); z-index: 9999; animation: trailFade 1s forwards; }
+        @keyframes trailFade { 0% { transform: scale(1) translateY(0); opacity: 1; } 100% { transform: scale(0) translateY(20px); opacity: 0; } }
 
-        /* Cursor Sparkle */
-        .sparkle-trail {
-            position: absolute;
-            width: 8px; height: 8px;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: var(--glow);
-            z-index: 9999;
-            animation: trailFade 1s forwards;
-        }
-        @keyframes trailFade { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0) translateY(20px); opacity: 0; } }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; margin-bottom: 15px; }
 
-        /* Mouse Glow */
-        #mouse-glow {
-            position: fixed;
-            width: 150px; height: 150px;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 9998;
-            transition: opacity 0.3s;
-            opacity: 0;
-        }
-
-        /* --- UI Elements --- */
-        .screen {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease, transform 1s ease;
-            z-index: 10;
-        }
+        /* UI Framework */
+        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .screen { position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 1.5s ease, transform 1.5s ease; transform: scale(1.05); }
         .screen.active { opacity: 1; pointer-events: all; transform: scale(1); }
-        .screen.zoom-out { transform: scale(1.1); opacity: 0; }
         .hidden { display: none !important; }
 
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px 30px;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4), inset 0 0 15px rgba(255,255,255,0.5);
-            max-width: 450px;
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.5);
+            max-width: 550px;
             width: 100%;
             text-align: center;
             position: relative;
             overflow: hidden;
-            transform: translateY(30px);
-            animation: cardSlideUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            transform: translateY(20px);
+            animation: cardFloat 6s ease-in-out infinite;
         }
+        
+        .glass-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to bottom right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 100%); transform: rotate(30deg) translateY(-100%); animation: shimmer 8s infinite; pointer-events: none; z-index: 1; }
+        @keyframes shimmer { 20% { transform: rotate(30deg) translateY(100%); } 100% { transform: rotate(30deg) translateY(100%); } }
+        @keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(to bottom right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 100%);
-            transform: rotate(30deg) translateY(-100%);
-            animation: cardShine 6s infinite;
-            pointer-events: none;
-        }
-
-        @keyframes cardSlideUp { to { transform: translateY(0); } }
-        @keyframes cardShine { 20% { transform: rotate(30deg) translateY(100%); } 100% { transform: rotate(30deg) translateY(100%); } }
-
-        .glowing-text {
-            color: #fff;
-            text-shadow: var(--glow);
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-        }
-
-        p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 15px; }
+        .glowing-text { color: var(--rose-gold); text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px var(--soft-pink); font-size: 1.8rem; line-height: 1.4; }
+        .giant-text { font-size: 2.5rem; text-shadow: 0 0 20px rgba(255,255,255,1), 0 0 40px var(--rose-gold); color: #fff; margin-bottom: 30px; }
+        
+        p { font-size: 1.2rem; line-height: 1.9; margin-bottom: 20px; color: var(--text-dark); text-shadow: 0 1px 2px rgba(255,255,255,0.4); }
 
         /* Buttons */
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            padding: 12px 28px;
-            border-radius: 30px;
+        .btn {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 15px 35px;
+            border-radius: 40px;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            color: var(--text-main);
-            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--rose-gold);
+            font-weight: 600;
             cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-top: 30px;
             position: relative;
             overflow: hidden;
+            z-index: 2;
+            display: inline-block;
         }
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.6);
-        }
-        .glass-btn:active { transform: translateY(1px); }
+        .btn:hover { background: rgba(255, 255, 255, 0.7); transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 25px rgba(255, 182, 193, 0.6); color: #a35d67; border-color: white; }
+        .btn:active { transform: translateY(2px) scale(0.98); }
+        .btn-stack { display: flex; flex-direction: column; gap: 15px; margin-top: 40px; align-items: center; }
         
-        .pulse-btn { animation: btnPulse 2s infinite; }
-        @keyframes btnPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
-
         /* Loading */
-        .progress-bar-container {
-            width: 100%; height: 8px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 10px; overflow: hidden; margin-top: 20px;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .progress-bar {
-            width: 0%; height: 100%;
-            background: #fff;
-            box-shadow: var(--glow);
-            border-radius: 10px;
-            animation: fillProgress 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        @keyframes fillProgress { to { width: 100%; } }
+        .progress-wrap { width: 100%; height: 10px; background: rgba(255,255,255,0.3); border-radius: 20px; overflow: hidden; margin-top: 30px; box-shadow: inset 0 1px 5px rgba(0,0,0,0.1); }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #fff, var(--rose-gold)); border-radius: 20px; box-shadow: var(--glow); transition: width 3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        /* Typewriter logic */
-        .type-line { opacity: 0; transform: translateY(15px); transition: all 0.8s ease; display: none; }
+        /* Typing & Animations */
+        .type-line { opacity: 0; transform: translateY(20px); transition: opacity 1s ease, transform 1s ease; display: none; }
         .type-line.show { display: block; opacity: 1; transform: translateY(0); }
-        .fade-in { opacity: 0; transition: opacity 1s ease; pointer-events: none; }
+        .fade-in { opacity: 0; pointer-events: none; transition: opacity 1.5s ease; }
         .fade-in.show { opacity: 1; pointer-events: all; }
-
-        /* Story Cards */
-        .story-content { display: none; }
-        .story-content.active-story { display: block; }
-
-        /* Controls */
-        #music-btn {
-            position: fixed; top: 20px; right: 20px; z-index: 100;
-            padding: 10px 15px; font-size: 1.2rem;
-            border-radius: 50%;
-        }
         
-        #logo-trigger {
-            position: fixed; top: 20px; left: 20px; z-index: 100;
-            font-size: 1.5rem; cursor: pointer;
-            filter: drop-shadow(var(--glow));
-            transition: transform 0.3s;
-        }
-        #logo-trigger:active { transform: scale(0.8); }
+        .pulse { animation: pulseAnim 2s infinite; }
+        @keyframes pulseAnim { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
 
-        /* Compliments */
-        #compliment-toast {
-            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(50px);
-            background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);
-            padding: 12px 24px; border-radius: 30px; border: 1px solid white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            font-size: 0.95rem; font-weight: 500;
-            opacity: 0; transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            z-index: 90; text-align: center; white-space: nowrap;
-        }
-        #compliment-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-        /* Explosion Elements */
-        #explosion-layer { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index: 9999; overflow: hidden;}
-        .exploding-item {
-            position: absolute;
-            font-size: 1.5rem;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            animation: bang 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-        }
-        @keyframes bang {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-            50% { opacity: 1; }
-            100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1) rotate(var(--rot)); opacity: 0; }
-        }
-
-        /* Final & Buttons */
-        .btn-stack { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; }
-        .heartbeat { animation: heartBeat 1.5s infinite; display: inline-block; }
-        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.3); } }
+        /* Floating UI Elements */
+        #logo-btn { position: fixed; top: 25px; left: 25px; z-index: 100; font-size: 2rem; cursor: pointer; filter: drop-shadow(var(--glow)); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        #logo-btn:active { transform: scale(0.7); }
         
-        .animated-underline { position: relative; display: inline-block; }
-        .animated-underline::after {
-            content: ''; position: absolute; width: 100%; height: 2px;
-            bottom: 0; left: 0; background: var(--rose-gold);
-            transform: scaleX(0); transform-origin: bottom right; transition: transform 0.5s ease-out;
-        }
-        .active-story .animated-underline::after { transform: scaleX(1); transform-origin: bottom left; transition-delay: 0.5s; }
+        #music-player { position: fixed; top: 25px; right: 25px; z-index: 100; display: flex; align-items: center; gap: 10px; background: var(--glass-bg); backdrop-filter: blur(10px); padding: 8px 15px; border-radius: 30px; border: 1px solid var(--glass-border); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        #play-btn { font-size: 1.2rem; cursor: pointer; background: none; border: none; color: var(--text-dark); outline: none; transition: transform 0.2s; }
+        #play-btn:hover { transform: scale(1.1); }
+        #vol-slider { width: 60px; accent-color: var(--rose-gold); cursor: pointer; }
 
+        /* Explosion Layer */
+        #explosion-layer { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index: 9999; overflow: hidden; }
+        .bang-item { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: bangAnim 3s cubic-bezier(0.2, 0.8, 0.3, 1) forwards; filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)); }
+        @keyframes bangAnim { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 60% { opacity: 1; } 100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(var(--sc)) rotate(var(--rot)); opacity: 0; } }
+
+        /* Secret Envelope */
+        .envelope-container { perspective: 1000px; width: 100%; display: flex; justify-content: center; margin-top: 20px; transition: opacity 1s; }
+        .envelope { position: relative; width: 280px; height: 180px; background: var(--rose-gold); border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 1s; transform-style: preserve-3d; cursor: pointer; }
+        .env-flap { position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 140px solid transparent; border-right: 140px solid transparent; border-top: 100px solid #a35d67; transform-origin: top; transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1); z-index: 3; }
+        .env-body { position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 140px solid #c97f8b; border-right: 140px solid #c97f8b; border-bottom: 90px solid #d48b97; z-index: 2; }
+        .env-letter { position: absolute; bottom: 10px; left: 10px; right: 10px; height: 160px; background: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; z-index: 1; transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .envelope.open .env-flap { transform: rotateX(180deg); z-index: 0; }
+        .envelope.open .env-letter { transform: translateY(-120px) scale(1.1); z-index: 4; }
+        .secret-content { display: none; text-align: left; max-height: 60vh; overflow-y: auto; padding-right: 10px; }
+        .secret-content::-webkit-scrollbar { width: 5px; }
+        .secret-content::-webkit-scrollbar-thumb { background: var(--rose-gold); border-radius: 10px; }
+        
+        @media (max-width: 480px) {
+            .glass-card { padding: 40px 25px; border-radius: 20px; }
+            h1, h2, h3, .glowing-text { font-size: 1.5rem; }
+            .giant-text { font-size: 2rem; }
+            p { font-size: 1.05rem; }
+            .envelope { width: 240px; height: 150px; }
+            .env-flap { border-left: 120px solid transparent; border-right: 120px solid transparent; border-top: 85px solid #a35d67; }
+            .env-body { border-left: 120px solid #c97f8b; border-right: 120px solid #c97f8b; border-bottom: 75px solid #d48b97; }
+            #music-player { top: 20px; right: 20px; padding: 6px 12px; }
+            #vol-slider { width: 50px; }
+            #logo-btn { top: 20px; left: 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="bg-gradient"></div>
-    <div class="aurora"></div>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div id="particles"></div>
-    <div id="mouse-glow"></div>
+    <div id="bg-effects">
+        <div class="aurora"></div>
+        <div id="particles"></div>
+    </div>
     <div id="explosion-layer"></div>
 
-    <div id="logo-trigger">✨</div>
-    <button id="music-btn" class="glass-btn" style="padding: 10px;">🎵</button>
-    <div id="compliment-toast"></div>
+    <div id="logo-btn" title="A little secret awaits...">❤️</div>
+    <div id="music-player">
+        <button id="play-btn">🎵</button>
+        <input type="range" id="vol-slider" min="0" max="1" step="0.01" value="0.5">
+    </div>
 
-    <audio id="bgm" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    <audio id="bg-audio" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/16/audio_964724b94c.mp3?filename=romantic-piano-111178.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="cheer-audio">
+        <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_c6ccf3232f.mp3?filename=party-horn-68443.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="screen-loading" class="screen active">
-        <div class="glass-card">
-            <h2 class="glowing-text">✨ Preparing Something Special...</h2>
-            <div class="progress-bar-container"><div class="progress-bar"></div></div>
-        </div>
-    </div>
-
-    <div id="screen-welcome" class="screen hidden">
-        <div class="glass-card" id="welcome-content">
-            <h1 class="type-line glowing-text" style="font-size: 2rem;">👋 Hey...</h1>
-            <p class="type-line">"I made something just for you."</p>
-            <p class="type-line">"I hope it makes you smile."</p>
-            <button id="btn-open" class="glass-btn pulse-btn fade-in" style="margin-top:30px;">✨ Open Surprise</button>
-        </div>
-    </div>
-
-    <div id="screen-story" class="screen hidden">
-        <div class="glass-card">
-            
-            <div id="story-1" class="story-content active-story">
-                <p class="type-line">Sometimes...</p>
-                <p class="type-line">you unexpectedly meet someone...</p>
-                <p class="type-line"><span class="animated-underline">who makes ordinary conversations feel more enjoyable.</span></p>
-            </div>
-            
-            <div id="story-2" class="story-content">
-                <p class="type-line">You don't notice it immediately...</p>
-                <p class="type-line">But somehow...</p>
-                <p class="type-line">their <span class="animated-underline">smile</span> stays in your mind.</p>
-            </div>
-
-            <div id="story-3" class="story-content">
-                <p class="type-line">Then...</p>
-                <p class="type-line">you find yourself <span class="animated-underline">looking forward</span> to their replies.</p>
-            </div>
-
-            <div id="story-4" class="story-content">
-                <p class="type-line">You keep telling yourself...</p>
-                <p class="type-line">"It's probably nothing."</p>
-                <p class="type-line">But you still smile whenever they appear.</p>
-            </div>
-
-            <div id="story-5" class="story-content">
-                <p class="type-line">So...</p>
-                <p class="type-line">instead of writing a long message...</p>
-                <p class="type-line">you decided to make this little website.</p>
-            </div>
-
-            <div id="story-6" class="story-content">
-                <p class="type-line">If you're reading this...</p>
-                <p class="type-line">there's a pretty good chance...</p>
-                <h2 class="type-line glowing-text" style="color: var(--rose-gold); margin-top:10px;">I'm talking about you. <span class="heartbeat">😊</span></h2>
-            </div>
-
-            <div id="story-7" class="story-content">
-                <p class="type-line">Don't worry.</p>
-                <p class="type-line">This isn't a proposal.</p>
-                <p class="type-line">There's no pressure.</p>
-                <p class="type-line"><span class="animated-underline">I just wanted to brighten your day.</span></p>
-            </div>
-
-            <button id="btn-next" class="glass-btn fade-in">Continue ✨</button>
-        </div>
-    </div>
-
-    <div id="screen-final" class="screen hidden">
-        <div class="glass-card">
-            <h1 class="glowing-text" style="font-size: 2.2rem; text-shadow: var(--neon-pink);">✨ Mission Complete ✨</h1>
-            <div class="type-line">
-                <p>If this page made you smile...</p>
-                <p>then my mission is already successful.</p>
-                <p style="font-size: 2rem; margin-top: 10px;">😊</p>
-            </div>
-            
-            <div class="btn-stack fade-in" id="final-btns">
-                <button class="glass-btn final-btn">😊 That Made Me Smile</button>
-                <button class="glass-btn final-btn">🌸 You're Sweet</button>
-                <button class="glass-btn final-btn">✨ This Was Cute</button>
+    <div id="ui-layer">
+        
+        <div id="screen-loading" class="screen active">
+            <div class="glass-card">
+                <h2 class="glowing-text">❤️ Preparing Something Special...</h2>
+                <div class="progress-wrap"><div class="progress-bar" id="load-bar"></div></div>
             </div>
         </div>
-    </div>
 
-    <div id="screen-secret" class="screen hidden">
-        <div class="glass-card" style="border: 2px solid #ffd700;">
-            <h1 class="glowing-text" style="color: #ffd700;">🎁 Secret Mode</h1>
-            <p class="type-line">"Congratulations!"</p>
-            <p class="type-line">"You discovered the hidden surprise."</p>
-            <p class="type-line" style="font-size: 2.5rem; margin-top: 20px;">🌈💖✨</p>
-            <button class="glass-btn fade-in" onclick="location.reload()">Reset</button>
+        <div id="screen-welcome" class="screen hidden">
+            <div class="glass-card" id="welcome-content">
+                <h1 class="type-line glowing-text" style="font-size: 2.2rem;">👋 Hi Gayatri...</h1>
+                <p class="type-line">"This little website isn't expensive..."</p>
+                <p class="type-line">"But every second spent creating it..."</p>
+                <p class="type-line">"...was made with you in mind."</p>
+                <button class="btn pulse fade-in" id="btn-open">✨ Open My Heart</button>
+            </div>
         </div>
+
+        <div id="screen-story" class="screen hidden">
+            <div class="glass-card">
+                <div id="story-content-container"></div>
+                <button class="btn fade-in" id="btn-next">Next ✨</button>
+            </div>
+        </div>
+
+        <div id="screen-final" class="screen hidden">
+            <div class="glass-card" id="final-content">
+                <h1 class="giant-text type-line">❤️ Dear Gayatri ❤️</h1>
+                <p class="type-line">"If this little surprise made you smile...</p>
+                <p class="type-line">then every minute spent creating it...</p>
+                <p class="type-line">was worth it."</p>
+                
+                <p class="type-line glowing-text" style="margin-top: 20px; font-size:1.4rem;">"You deserve happiness."</p>
+                <p class="type-line glowing-text" style="font-size:1.4rem;">"You deserve kindness."</p>
+                <p class="type-line glowing-text" style="font-size:1.4rem;">"You deserve endless smiles."</p>
+                <p class="type-line" style="margin-top: 15px; font-weight: 500;">"And I hope life always gives you reasons to smile."</p>
+
+                <div class="btn-stack fade-in">
+                    <button class="btn pulse final-btn">😊 You Made Me Smile</button>
+                    <button class="btn final-btn" style="background: rgba(255,255,255,0.2);">🌸 Thank You</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="screen-secret" class="screen hidden">
+            <div class="glass-card" style="max-width: 600px;">
+                <h2 class="glowing-text" id="secret-title">❤️ Secret Letter</h2>
+                
+                <div class="envelope-container" id="env-container">
+                    <div class="envelope" id="envelope">
+                        <div class="env-flap"></div>
+                        <div class="env-body"></div>
+                        <div class="env-letter"><span style="font-size: 2rem;">💌</span></div>
+                    </div>
+                </div>
+
+                <div class="secret-content fade-in" id="secret-text">
+                    <p style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--rose-gold); font-weight: 600;">Dear Gayatri,</p>
+                    <p>I don't know where life will take us.</p>
+                    <p>I don't know how many conversations we'll have.</p>
+                    <p>I don't know what tomorrow holds.</p>
+                    <p>But today...</p>
+                    <p>I simply wanted to tell you...</p>
+                    <p>that meeting you was one of the nicest surprises life gave me.</p>
+                    <p>Whether we remain friends...</p>
+                    <p>or become something more...</p>
+                    <p>I'll always be grateful that our paths crossed.</p>
+                    <p>Keep smiling.</p>
+                    <p>Because your smile has already made someone's world brighter.</p>
+                    <p style="text-align: right; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--rose-gold); font-weight: 600; margin-top: 30px;">— Diku ❤️</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // --- Globals & Utils ---
+        // --- Utilities ---
         const $ = id => document.getElementById(id);
-        const sleep = ms => new Promise(r => setTimeout(r, ms));
-        let bgmPlaying = false;
+        const sleep = ms => new Promise(res => setTimeout(res, ms));
+
+        // --- Audio Logic ---
+        const bgAudio = $('bg-audio');
+        const cheerAudio = $('cheer-audio');
+        const playBtn = $('play-btn');
+        const volSlider = $('vol-slider');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgAudio.pause();
+                playBtn.innerHTML = '🎵';
+                playBtn.style.color = "var(--text-dark)";
+            } else {
+                bgAudio.volume = volSlider.value;
+                bgAudio.play().catch(() => console.log("Autoplay blocked"));
+                playBtn.innerHTML = '⏸';
+                playBtn.style.color = "var(--rose-gold)";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        playBtn.addEventListener('click', toggleMusic);
+        volSlider.addEventListener('input', (e) => { bgAudio.volume = e.target.value; });
+
+        // --- Background Particles ---
+        const particlesContainer = $('particles');
+        const elements = ['❤️', '🌸', '🦋', '✨', '💖', '☁️', '🌙', '🌌'];
         
-        // --- Transitions ---
+        function spawnParticle() {
+            if(document.hidden) { requestAnimationFrame(spawnParticle); return; }
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.innerText = elements[Math.floor(Math.random() * elements.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            p.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            p.style.opacity = Math.random() * 0.6 + 0.2;
+            
+            particlesContainer.appendChild(p);
+            setTimeout(() => p.remove(), 25000);
+        }
+        
+        setInterval(spawnParticle, 800);
+        for(let i=0; i<15; i++) spawnParticle(); // Initial burst
+
+        // --- Mouse Sparkles ---
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.4) return;
+            const sparkle = document.createElement('div');
+            sparkle.className = 'cursor-sparkle';
+            sparkle.style.left = (e.clientX - 3) + 'px';
+            sparkle.style.top = (e.clientY - 3) + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 1000);
+        });
+
+        // --- Screen Management & Typewriter ---
         async function switchScreen(hideId, showId) {
             const hideEl = $(hideId);
             const showEl = $(showId);
-            hideEl.classList.add('zoom-out');
-            await sleep(800);
+            hideEl.classList.remove('active');
+            await sleep(1000);
             hideEl.classList.add('hidden');
-            hideEl.classList.remove('active', 'zoom-out');
             showEl.classList.remove('hidden');
-            // trigger reflow
-            void showEl.offsetWidth;
+            void showEl.offsetWidth; // force reflow
             showEl.classList.add('active');
         }
 
-        // --- Typewriter Animation ---
         async function playTypewriter(container) {
             const lines = container.querySelectorAll('.type-line');
-            const btn = container.parentElement.querySelector('.fade-in') || container.querySelector('.fade-in');
+            const btn = container.querySelector('.fade-in') || container.parentElement.querySelector('.fade-in');
             
             if(btn) btn.classList.remove('show');
             lines.forEach(l => { l.classList.remove('show'); l.style.display = 'none'; });
             
-            for(let i = 0; i < lines.length; i++) {
-                await sleep(400);
+            for (let i = 0; i < lines.length; i++) {
+                await sleep(500);
                 lines[i].style.display = 'block';
-                await sleep(50); // reflow
+                await sleep(50);
                 lines[i].classList.add('show');
-                await sleep(1500 + (lines[i].textContent.length * 15)); // dynamic reading time
+                
+                // Dynamic reading time based on length
+                const readTime = Math.max(1200, lines[i].textContent.length * 40);
+                await sleep(readTime);
             }
             if(btn) {
-                await sleep(500);
+                await sleep(800);
                 btn.classList.add('show');
             }
         }
 
-        // --- Flow Control ---
-        let currentStory = 1;
-        const totalStories = 7;
+        // --- Story Data ---
+        const storyPages = [
+            [
+                "Do you know...",
+                "Some people come into our lives...",
+                "without making any noise...",
+                "yet somehow...",
+                "they become the reason we smile."
+            ],
+            [
+                "Every conversation with you...",
+                "feels shorter than it actually is...",
+                "because talking to you...",
+                "never feels boring."
+            ],
+            [
+                "Your smile...",
+                "has a strange power...",
+                "It can completely change someone's day...",
+                "Mine included."
+            ],
+            [
+                "Your kindness...",
+                "Your simplicity...",
+                "Your beautiful heart...",
+                "That's what makes you different."
+            ],
+            [
+                "I don't know what tomorrow brings...",
+                "But I know...",
+                "meeting you...",
+                "made my days brighter."
+            ],
+            [
+                "Maybe...",
+                "you never realised...",
+                "how special you are...",
+                "But someone does.",
+                "❤️"
+            ],
+            [
+                "That someone...",
+                "is me."
+            ],
+            [
+                "No pressure.",
+                "No expectations.",
+                "No perfect words.",
+                "Just honesty.",
+                "I simply wanted you to know...",
+                "you've become someone I genuinely appreciate."
+            ],
+            [
+                "Thank you...",
+                "for existing...",
+                "Thank you...",
+                "for your smile...",
+                "Thank you...",
+                "for unknowingly making ordinary days feel extraordinary."
+            ]
+        ];
 
+        let currentPage = 0;
+        const storyContainer = $('story-content-container');
+
+        async function renderStoryPage(index) {
+            storyContainer.innerHTML = '';
+            storyPages[index].forEach(text => {
+                const p = document.createElement('p');
+                p.className = 'type-line';
+                if(text === '❤️' || text === 'is me.') p.classList.add('glowing-text');
+                p.innerText = text;
+                storyContainer.appendChild(p);
+            });
+            await playTypewriter($('screen-story'));
+        }
+
+        // --- Initial Flow ---
         window.onload = async () => {
-            initParticles();
-            initMouseEffects();
-            startCompliments();
-
-            // 1. Loading Phase
-            await sleep(3000);
+            // Loading progress
+            setTimeout(() => { $('load-bar').style.width = '100%'; }, 100);
+            await sleep(3200);
             await switchScreen('screen-loading', 'screen-welcome');
-            playTypewriter($('welcome-content'));
+            await playTypewriter($('welcome-content'));
         };
 
         $('btn-open').addEventListener('click', async () => {
-            if(!bgmPlaying) toggleMusic(); // auto start music if allowed
+            if(!isPlaying) toggleMusic();
             await switchScreen('screen-welcome', 'screen-story');
-            playTypewriter($('story-1'));
+            await renderStoryPage(currentPage);
         });
 
         $('btn-next').addEventListener('click', async () => {
-            const btn = $('btn-next');
-            btn.classList.remove('show');
+            $('btn-next').classList.remove('show');
+            currentPage++;
             
-            $(`story-${currentStory}`).classList.remove('active-story');
-            currentStory++;
-            
-            if(currentStory <= totalStories) {
-                $(`story-${currentStory}`).classList.add('active-story');
-                playTypewriter($(`story-${currentStory}`));
+            if (currentPage < storyPages.length) {
+                // Fade out current text slightly
+                storyContainer.style.opacity = 0;
+                await sleep(500);
+                storyContainer.style.opacity = 1;
+                await renderStoryPage(currentPage);
             } else {
                 await switchScreen('screen-story', 'screen-final');
-                playTypewriter($('screen-final'));
+                await playTypewriter($('final-content'));
             }
         });
 
-        // --- Final Buttons (Explosion) ---
-        document.querySelectorAll('.final-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                triggerExplosion();
-                e.target.style.transform = 'scale(0.9)';
-                setTimeout(() => e.target.style.transform = '', 200);
-            });
-        });
-
-        function triggerExplosion() {
+        // --- Final Celebration Explosion ---
+        function triggerCelebration() {
+            cheerAudio.volume = 0.5;
+            cheerAudio.play().catch(() => {});
+            
             const layer = $('explosion-layer');
-            const items = ['🎊', '❤️', '🌸', '🦋', '✨', '🎈', '💖'];
-            for(let i=0; i<100; i++){
+            const items = ['🎉', '❤️', '🌸', '🦋', '✨', '💖', '🎊', '🌹'];
+            
+            for(let i=0; i<120; i++){
                 const el = document.createElement('div');
-                el.className = 'exploding-item';
+                el.className = 'bang-item';
                 el.innerText = items[Math.floor(Math.random()*items.length)];
                 
                 const angle = Math.random() * Math.PI * 2;
-                const velocity = 150 + Math.random() * 400; // max dist
+                const velocity = 200 + Math.random() * 500;
                 const tx = Math.cos(angle) * velocity;
-                const ty = Math.sin(angle) * velocity + (Math.random() * 200); // slight gravity bias
+                const ty = Math.sin(angle) * velocity + (Math.random() * 300); // Gravity effect
                 
                 el.style.setProperty('--tx', tx + 'px');
                 el.style.setProperty('--ty', ty + 'px');
+                el.style.setProperty('--sc', Math.random() * 1.5 + 0.5);
                 el.style.setProperty('--rot', (Math.random() * 720 - 360) + 'deg');
+                el.style.animationDelay = (Math.random() * 0.2) + 's';
                 
                 layer.appendChild(el);
-                setTimeout(() => el.remove(), 2500);
+                setTimeout(() => el.remove(), 3000);
             }
         }
 
-        // --- Secret Feature ---
-        let logoTaps = 0;
-        let lastTap = 0;
-        $('logo-trigger').addEventListener('click', async () => {
+        document.querySelectorAll('.final-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                triggerCelebration();
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => this.style.transform = 'scale(1)', 200);
+            });
+        });
+
+        // --- Secret Feature (7 Taps) ---
+        let taps = 0;
+        let lastTapTime = 0;
+
+        $('logo-btn').addEventListener('click', async () => {
             const now = Date.now();
-            if(now - lastTap > 2000) logoTaps = 0; // reset if too slow
-            lastTap = now;
-            logoTaps++;
-            if(logoTaps === 5) {
-                document.querySelectorAll('.screen.active').forEach(s => switchScreen(s.id, 'screen-secret'));
-                setTimeout(() => playTypewriter($('screen-secret')), 1000);
-                triggerExplosion(); // Rainbow Hearts explosion
+            if (now - lastTapTime > 2000) taps = 0; // Reset if too slow
+            lastTapTime = now;
+            taps++;
+            
+            // Visual feedback
+            const logo = $('logo-btn');
+            logo.style.transform = 'scale(1.5)';
+            setTimeout(() => logo.style.transform = 'scale(1)', 150);
+
+            if (taps === 7) {
+                taps = 0;
+                // Transition to secret screen from wherever they are
+                document.querySelectorAll('.screen.active').forEach(s => s.classList.remove('active'));
+                const secretScreen = $('screen-secret');
+                secretScreen.classList.remove('hidden');
+                void secretScreen.offsetWidth;
+                secretScreen.classList.add('active');
+                
+                triggerCelebration(); // Mini celebration
+                
+                // Envelope animation
+                const envelope = $('envelope');
+                await sleep(1000);
+                envelope.classList.add('open');
+                
+                await sleep(1500);
+                $('env-container').style.opacity = 0;
+                await sleep(1000);
+                $('env-container').style.display = 'none';
+                $('secret-text').classList.add('show');
             }
         });
 
-        // --- Audio Control ---
-        function toggleMusic() {
-            const audio = $('bgm');
-            const btn = $('music-btn');
-            if(bgmPlaying) {
-                audio.pause();
-                btn.innerText = '🎵';
-                btn.style.background = 'rgba(255,255,255,0.3)';
-            } else {
-                audio.volume = 0.5;
-                audio.play().catch(e => console.log('Audio autoplay prevented'));
-                btn.innerText = '🔊';
-                btn.style.background = 'rgba(255,255,255,0.6)';
-            }
-            bgmPlaying = !bgmPlaying;
-        }
-        $('music-btn').addEventListener('click', toggleMusic);
-
-        // --- Background Particles ---
-        function initParticles() {
-            const container = $('particles');
-            const shapes = ['❤️', '✨', '🌸', '🦋', '⭐', '🤍'];
-            
-            function spawn() {
-                if(document.hidden) return requestAnimationFrame(spawn);
-                const el = document.createElement('div');
-                el.className = 'particle';
-                el.innerText = shapes[Math.floor(Math.random() * shapes.length)];
-                el.style.left = Math.random() * 100 + 'vw';
-                el.style.fontSize = (Math.random() * 15 + 10) + 'px';
-                el.style.animationDuration = (Math.random() * 15 + 15) + 's';
-                el.style.opacity = Math.random() * 0.5 + 0.1;
-                
-                container.appendChild(el);
-                setTimeout(() => el.remove(), 30000);
-            }
-            
-            setInterval(spawn, 500);
-            for(let i=0; i<20; i++) spawn(); // initial fill
-        }
-
-        // --- Mouse/Cursor Effects ---
-        function initMouseEffects() {
-            let glow = $('mouse-glow');
-            document.addEventListener('mousemove', e => {
-                // Glow
-                glow.style.opacity = 1;
-                glow.style.left = e.clientX + 'px';
-                glow.style.top = e.clientY + 'px';
-
-                // Trail
-                if(Math.random() > 0.4) return;
-                const trail = document.createElement('div');
-                trail.className = 'sparkle-trail';
-                trail.style.left = (e.clientX - 4) + 'px';
-                trail.style.top = (e.clientY - 4) + 'px';
-                document.body.appendChild(trail);
-                setTimeout(() => trail.remove(), 1000);
-            });
-            document.addEventListener('mouseleave', () => glow.style.opacity = 0);
-        }
-
-        // --- Random Messages ---
-        function startCompliments() {
-            const messages = [
-                "✨ Hope today has been kind to you.",
-                "✨ Keep smiling.",
-                "✨ Someone appreciates your vibe.",
-                "✨ You're pretty awesome.",
-                "✨ You deserve happiness.",
-                "✨ Your energy is unmatched.",
-                "🌸 Just a reminder that you matter."
-            ];
-            const toast = $('compliment-toast');
-            
-            setInterval(() => {
-                if($('screen-final').classList.contains('active') || $('screen-secret').classList.contains('active')) return;
-                
-                toast.innerText = messages[Math.floor(Math.random() * messages.length)];
-                toast.classList.add('show');
-                
-                setTimeout(() => toast.classList.remove('show'), 4000);
-            }, 10000);
-        }
     </script>
 </body>
 </html>

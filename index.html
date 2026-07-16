@@ -42,7 +42,6 @@
   }
   #app{ position:relative; min-height:100vh; width:100%; }
 
-  /* ---------- Ambient layers ---------- */
   #ambient{ position:fixed; inset:0; pointer-events:none; z-index:2; overflow:hidden; }
   .petal, .heart-float, .sparkle, .butterfly{ position:absolute; will-change:transform; }
   .petal{
@@ -90,7 +89,16 @@
     100%{ transform: translate(-10vw, 60vh) rotate(0deg); }
   }
 
-  /* ---------- Glass card ---------- */
+  .trail-heart{
+    position:fixed; z-index:5; pointer-events:none;
+    font-size:14px; opacity:0.8;
+    animation: trailFade 1s ease-out forwards;
+  }
+  @keyframes trailFade{
+    0%{ opacity:0.8; transform: translate(0,0) scale(1); }
+    100%{ opacity:0; transform: translate(-6px,-30px) scale(0.4); }
+  }
+
   .glass{
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
@@ -98,25 +106,32 @@
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border-radius: 30px;
     box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255,255,255,0.6);
+    animation: bob 5s ease-in-out infinite;
+    transition: transform 0.25s ease;
+  }
+  @keyframes bob{
+    0%,100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-7px); }
   }
 
-  /* ---------- Loading screen ---------- */
   #loader{
     position:fixed; inset:0; z-index:50;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     background: linear-gradient(160deg, var(--pink1), var(--lav1));
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    transition: opacity 0.9s ease, visibility 0.9s ease;
+    overflow:hidden;
   }
   #loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+  .loader-orbit{ position:relative; width:120px; height:120px; margin-bottom:26px; }
   .loader-heart{
-    width:60px; height:60px; position:relative; margin-bottom:22px;
+    width:56px; height:56px; position:absolute; left:32px; top:32px;
     animation: heartbeat 1.1s ease-in-out infinite;
   }
   .loader-heart::before, .loader-heart::after{
-    content:''; position:absolute; top:0; width:32px; height:48px; border-radius:32px 32px 0 0;
+    content:''; position:absolute; top:0; width:30px; height:45px; border-radius:30px 30px 0 0;
     background: linear-gradient(150deg, var(--rose), var(--magenta));
   }
-  .loader-heart::before{ left:30px; transform: rotate(-45deg); transform-origin: 0 100%; }
+  .loader-heart::before{ left:28px; transform: rotate(-45deg); transform-origin: 0 100%; }
   .loader-heart::after{ left:0; transform: rotate(45deg); transform-origin: 100% 100%; }
   @keyframes heartbeat{
     0%,100%{ transform:scale(1); }
@@ -124,12 +139,23 @@
     45%{ transform:scale(0.95); }
     60%{ transform:scale(1.1); }
   }
+  .loader-orbit span{
+    position:absolute; top:50%; left:50%; width:8px; height:8px; border-radius:50%;
+    background: var(--gold);
+    box-shadow:0 0 8px 2px rgba(255,233,173,0.8);
+    animation: orbit 3s linear infinite;
+  }
+  .loader-orbit span:nth-child(2){ animation-delay:-1s; background:var(--rose); }
+  .loader-orbit span:nth-child(3){ animation-delay:-2s; background:var(--lav2); }
+  @keyframes orbit{
+    from{ transform: rotate(0deg) translateX(58px) rotate(0deg); }
+    to{ transform: rotate(360deg) translateX(58px) rotate(-360deg); }
+  }
   #loader p{ font-family:'Dancing Script', cursive; font-size:1.5rem; color:var(--deep); letter-spacing:0.5px; }
   .loader-bar{ width:180px; height:6px; border-radius:6px; background:rgba(255,255,255,0.6); overflow:hidden; margin-top:14px; }
-  .loader-bar-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--rose),var(--lav2)); border-radius:6px; animation: loadfill 1.8s ease forwards; }
+  .loader-bar-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--rose),var(--lav2)); border-radius:6px; animation: loadfill 2.1s ease forwards; }
   @keyframes loadfill{ to{ width:100%; } }
 
-  /* ---------- Stage / screens ---------- */
   #stage{
     position:relative; z-index:10;
     min-height:100vh; width:100%;
@@ -144,18 +170,20 @@
   }
   .screen.active{
     display:block;
-    animation: cardIn 0.7s cubic-bezier(.2,.9,.3,1.2);
+    animation: cardIn 0.75s cubic-bezier(.2,.9,.25,1.15);
   }
   .screen.leaving{
-    animation: cardOut 0.4s ease forwards;
+    display:block;
+    animation: cardOut 0.4s cubic-bezier(.5,0,.75,0) forwards;
   }
   @keyframes cardIn{
-    from{ opacity:0; transform: translateY(24px) scale(0.96); }
-    to{ opacity:1; transform: translateY(0) scale(1); }
+    0%{ opacity:0; transform: translateY(34px) scale(0.94) rotateX(6deg); filter: blur(6px); }
+    60%{ filter: blur(0px); }
+    100%{ opacity:1; transform: translateY(0) scale(1) rotateX(0); filter: blur(0px); }
   }
   @keyframes cardOut{
-    from{ opacity:1; transform: translateY(0) scale(1); }
-    to{ opacity:0; transform: translateY(-16px) scale(0.97); }
+    0%{ opacity:1; transform: translateY(0) scale(1); filter: blur(0px); }
+    100%{ opacity:0; transform: translateY(-26px) scale(0.95); filter: blur(4px); }
   }
 
   .eyebrow{
@@ -186,6 +214,19 @@
     color:#fff; background: linear-gradient(135deg, var(--rose), var(--lav2));
     box-shadow: 0 6px 20px rgba(200,120,190,0.35);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position:relative; overflow:hidden;
+  }
+  button::after{
+    content:'';
+    position:absolute; top:0; left:-75%; width:50%; height:100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform: skewX(-20deg);
+    animation: shimmer 3.2s ease-in-out infinite;
+  }
+  @keyframes shimmer{
+    0%{ left:-75%; }
+    40%{ left:130%; }
+    100%{ left:130%; }
   }
   button:hover{ transform: translateY(-2px) scale(1.03); box-shadow: 0 10px 26px rgba(200,120,190,0.45); }
   button:active{ transform: translateY(0) scale(0.98); }
@@ -195,14 +236,23 @@
     border:1px solid rgba(255,255,255,0.8);
     box-shadow:none;
   }
+  .btn-ghost::after{ display:none; }
 
-  .progress-dots{ display:flex; gap:8px; justify-content:center; margin-bottom:22px; }
-  .dot{ width:8px; height:8px; border-radius:50%; background:rgba(138,74,134,0.22); transition: all 0.3s ease; }
+  .progress-dots{ display:flex; gap:8px; justify-content:center; margin-bottom:22px; flex-wrap:wrap; }
+  .dot{ width:8px; height:8px; border-radius:50%; background:rgba(138,74,134,0.22); transition: all 0.35s ease; }
   .dot.on{ background:var(--magenta); width:22px; border-radius:6px; }
 
-  .card-emoji{ font-size:2.6rem; margin-bottom:10px; }
+  .card-emoji{
+    font-size:2.6rem; margin-bottom:10px;
+    display:inline-block;
+    animation: emojiPop 0.6s cubic-bezier(.3,1.6,.6,1) both;
+  }
+  @keyframes emojiPop{
+    0%{ transform: scale(0) rotate(-15deg); opacity:0; }
+    70%{ transform: scale(1.15) rotate(4deg); opacity:1; }
+    100%{ transform: scale(1) rotate(0); }
+  }
 
-  /* Final screen */
   .heart-burst{
     font-size:3rem; margin-bottom:6px;
     animation: bigPulse 1.4s ease-in-out infinite;
@@ -212,10 +262,8 @@
     50%{ transform:scale(1.15) rotate(-3deg); }
   }
 
-  /* Confetti canvas */
   #confetti-canvas{ position:fixed; inset:0; z-index:60; pointer-events:none; }
 
-  /* Music toggle */
   #musicToggle{
     position:fixed; top:18px; right:18px; z-index:70;
     width:52px; height:52px; border-radius:50%;
@@ -226,7 +274,9 @@
     backdrop-filter: blur(14px);
     box-shadow: var(--shadow-soft);
     color: var(--deep);
+    animation:none;
   }
+  #musicToggle::after{ display:none; }
   #musicToggle:hover{ transform: translateY(-2px) scale(1.05); }
   #musicToggle .bars{ display:flex; gap:2px; align-items:flex-end; height:16px; }
   #musicToggle .bars span{
@@ -251,7 +301,10 @@
 <body>
 
 <div id="loader">
-  <div class="loader-heart"></div>
+  <div class="loader-orbit">
+    <div class="loader-heart"></div>
+    <span></span><span></span><span></span>
+  </div>
   <p>A tiny surprise is loading...</p>
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
 </div>
@@ -265,7 +318,6 @@
 
   <div id="stage">
 
-    <!-- Screen 0: greeting -->
     <div class="screen glass active" data-screen="0">
       <div class="card-emoji">👋</div>
       <h1 class="script">Hey</h1>
@@ -275,24 +327,16 @@
       </div>
     </div>
 
-    <!-- Screen 1: card 1 -->
     <div class="screen glass" data-screen="1">
-      <div class="progress-dots">
-        <span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      </div>
+      <div class="progress-dots" id="dots1"></div>
       <div class="card-emoji">😊</div>
       <p class="typewriter" id="tw1" style="font-size:clamp(1.1rem,2.8vw,1.35rem);"></p>
-      <div class="btn-row">
-        <button onclick="goTo(2)">next</button>
-      </div>
+      <div class="btn-row"><button onclick="goTo(2)">next</button></div>
     </div>
 
-    <!-- Screen 2: card 2 -->
     <div class="screen glass" data-screen="2">
-      <div class="progress-dots">
-        <span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span>
-      </div>
-      <div class="card-emoji">💬</div>
+      <div class="progress-dots" id="dots2"></div>
+      <div class="card-emoji">🌷</div>
       <p class="typewriter" id="tw2" style="font-size:clamp(1.1rem,2.8vw,1.35rem);"></p>
       <div class="btn-row">
         <button class="btn-ghost" onclick="goTo(1)">back</button>
@@ -300,12 +344,9 @@
       </div>
     </div>
 
-    <!-- Screen 3: card 3 -->
     <div class="screen glass" data-screen="3">
-      <div class="progress-dots">
-        <span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span>
-      </div>
-      <div class="card-emoji">😉</div>
+      <div class="progress-dots" id="dots3"></div>
+      <div class="card-emoji">💬</div>
       <p class="typewriter" id="tw3" style="font-size:clamp(1.1rem,2.8vw,1.35rem);"></p>
       <div class="btn-row">
         <button class="btn-ghost" onclick="goTo(2)">back</button>
@@ -313,12 +354,9 @@
       </div>
     </div>
 
-    <!-- Screen 4: card 4 -->
     <div class="screen glass" data-screen="4">
-      <div class="progress-dots">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span>
-      </div>
-      <div class="card-emoji">🌸</div>
+      <div class="progress-dots" id="dots4"></div>
+      <div class="card-emoji">🍃</div>
       <p class="typewriter" id="tw4" style="font-size:clamp(1.1rem,2.8vw,1.35rem);"></p>
       <div class="btn-row">
         <button class="btn-ghost" onclick="goTo(3)">back</button>
@@ -326,19 +364,47 @@
       </div>
     </div>
 
-    <!-- Screen 5: reveal + reactions -->
     <div class="screen glass" data-screen="5">
-      <div class="eyebrow">the reason for all this</div>
-      <h1>I thought I'd make this little page <span class="script">just to brighten your day.</span></h1>
-      <p class="typewriter" id="tw5" style="min-height:2.4em;"></p>
+      <div class="progress-dots" id="dots5"></div>
+      <div class="card-emoji">😉</div>
+      <p class="typewriter" id="tw5" style="font-size:clamp(1.1rem,2.8vw,1.35rem);"></p>
       <div class="btn-row">
-        <button onclick="react('smile')">😊 That made me smile</button>
-        <button onclick="react('sweet')">🌸 You're sweet</button>
+        <button class="btn-ghost" onclick="goTo(4)">back</button>
+        <button onclick="goTo(6)">next</button>
       </div>
     </div>
 
-    <!-- Final -->
-    <div class="screen glass" id="finalMsg">
+    <div class="screen glass" data-screen="6">
+      <div class="progress-dots" id="dots6"></div>
+      <div class="card-emoji">🌸</div>
+      <p class="typewriter" id="tw6" style="font-size:clamp(1.1rem,2.8vw,1.35rem);"></p>
+      <div class="btn-row">
+        <button class="btn-ghost" onclick="goTo(5)">back</button>
+        <button onclick="goTo(7)">next</button>
+      </div>
+    </div>
+
+    <div class="screen glass" data-screen="7">
+      <div class="progress-dots" id="dots7"></div>
+      <div class="card-emoji">✨</div>
+      <p class="typewriter" id="tw7" style="font-size:clamp(1.1rem,2.8vw,1.35rem);"></p>
+      <div class="btn-row">
+        <button class="btn-ghost" onclick="goTo(6)">back</button>
+        <button onclick="goTo(8)">next</button>
+      </div>
+    </div>
+
+    <div class="screen glass" data-screen="8">
+      <div class="eyebrow">the reason for all this</div>
+      <h1>I thought I'd make this little page <span class="script">just to brighten your day.</span></h1>
+      <p class="typewriter" id="tw8" style="min-height:2.4em;"></p>
+      <div class="btn-row">
+        <button onclick="react()">😊 That made me smile</button>
+        <button onclick="react()">🌸 You're sweet</button>
+      </div>
+    </div>
+
+    <div class="screen glass" data-screen="final">
       <div class="heart-burst">💖</div>
       <h1>Mission accomplished! <span class="script">😊</span></h1>
       <p class="typewriter" id="twFinal" style="min-height:auto;"></p>
@@ -350,7 +416,6 @@
 <canvas id="confetti-canvas"></canvas>
 
 <script>
-/* ---------------- Ambient background generation ---------------- */
 const ambient = document.getElementById('ambient');
 function rand(min,max){ return Math.random()*(max-min)+min; }
 
@@ -403,27 +468,59 @@ function spawnButterflies(n){
     ambient.appendChild(b);
   }
 }
-spawnPetals(18);
-spawnHearts(12);
-spawnSparkles(24);
-spawnButterflies(3);
+spawnPetals(20);
+spawnHearts(14);
+spawnSparkles(28);
+spawnButterflies(4);
 
-/* ---------------- Loader ---------------- */
+let lastTrail = 0;
+const isTouch = window.matchMedia('(pointer: coarse)').matches;
+if(!isTouch){
+  window.addEventListener('mousemove', (e)=>{
+    const now = Date.now();
+    if(now - lastTrail < 90) return;
+    lastTrail = now;
+    const glyphs = ['💗','✨','🌸'];
+    const t = document.createElement('div');
+    t.className = 'trail-heart';
+    t.textContent = glyphs[Math.floor(rand(0,glyphs.length))];
+    t.style.left = (e.clientX - 6) + 'px';
+    t.style.top = (e.clientY - 6) + 'px';
+    document.body.appendChild(t);
+    setTimeout(()=> t.remove(), 1000);
+  });
+}
+
+if(!isTouch){
+  document.addEventListener('mousemove', (e)=>{
+    const el = document.querySelector('.screen.active');
+    if(!el) return;
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width/2;
+    const cy = rect.top + rect.height/2;
+    const dx = (e.clientX - cx) / rect.width;
+    const dy = (e.clientY - cy) / rect.height;
+    el.style.transform = `perspective(900px) rotateY(${dx*4}deg) rotateX(${-dy*4}deg)`;
+  });
+}
+
 window.addEventListener('load', ()=>{
   setTimeout(()=>{
     document.getElementById('loader').classList.add('hidden');
     typeLine(0);
-  }, 1900);
+  }, 2100);
 });
 
-/* ---------------- Typewriter ---------------- */
 const lines = {
   0: "I made something fun... just for you 😊",
   1: "Someone has a really beautiful smile 😊",
-  2: "She somehow makes ordinary conversations feel more interesting.",
-  3: "She's reading this page right now... 😉",
-  4: "I don't know if you noticed... but you make me smile too.",
-  5: ""
+  2: "She's got a laugh that's honestly a little contagious.",
+  3: "She somehow makes ordinary conversations feel more interesting.",
+  4: "She remembers little details other people usually forget.",
+  5: "She's reading this page right now... 😉",
+  6: "I don't know if you noticed... but you make me smile too.",
+  7: "Anyway, that's the surprise. Nothing dramatic — just true.",
+  8: ""
 };
 const typedFlags = {};
 
@@ -431,6 +528,7 @@ function typeLine(step){
   if(typedFlags[step]) return;
   typedFlags[step] = true;
   const el = document.getElementById('tw'+step);
+  if(!el) return;
   const text = lines[step];
   el.innerHTML = '';
   let i = 0;
@@ -448,46 +546,60 @@ function typeLine(step){
   tick();
 }
 
-/* ---------------- Navigation ---------------- */
+const totalCardScreens = 7;
+for(let s=1; s<=totalCardScreens; s++){
+  const container = document.getElementById('dots'+s);
+  if(!container) continue;
+  for(let d=1; d<=totalCardScreens; d++){
+    const dot = document.createElement('span');
+    dot.className = 'dot' + (d===s ? ' on' : '');
+    container.appendChild(dot);
+  }
+}
+
 function goTo(step){
   const current = document.querySelector('.screen.active');
   const next = document.querySelector(`.screen[data-screen="${step}"]`);
+  if(current === next) return;
   if(current){
     current.classList.remove('active');
+    current.classList.add('leaving');
+    current.style.transform = '';
+    setTimeout(()=>{ current.classList.remove('leaving'); }, 420);
   }
-  next.classList.add('active');
-  typeLine(step);
+  setTimeout(()=>{
+    next.classList.add('active');
+    typeLine(step);
+  }, current ? 180 : 0);
 }
 
-/* ---------------- Reactions ---------------- */
 let reacted = false;
-function react(kind){
+function react(){
   if(reacted) return;
   reacted = true;
-  document.querySelector('.screen.active').classList.remove('active');
-  const finalEl = document.getElementById('finalMsg');
-  finalEl.classList.add('active');
-  burstConfetti();
-  setTimeout(burstConfetti, 550);
-  spawnHearts(10);
-  spawnSparkles(14);
+  goTo('final');
+  spawnHearts(12);
+  spawnSparkles(16);
   spawnButterflies(2);
+  setTimeout(()=>{ burstConfetti(); }, 250);
+  setTimeout(burstConfetti, 800);
 
-  const el = document.getElementById('twFinal');
-  const text = "If this made you smile, then it was worth every second.\nHope your day is as lovely as your smile. 🌸✨";
-  el.innerHTML = '';
-  let i = 0;
-  function tick(){
-    if(i <= text.length){
-      el.innerHTML = text.slice(0,i).replace('\n','<br>');
-      i++;
-      setTimeout(tick, 20);
+  setTimeout(()=>{
+    const el = document.getElementById('twFinal');
+    const text = "If this made you smile, then it was worth every second.\nHope your day is as lovely as your smile. 🌸✨";
+    el.innerHTML = '';
+    let i = 0;
+    function tick(){
+      if(i <= text.length){
+        el.innerHTML = text.slice(0,i).replace('\n','<br>');
+        i++;
+        setTimeout(tick, 20);
+      }
     }
-  }
-  tick();
+    tick();
+  }, 260);
 }
 
-/* ---------------- Confetti ---------------- */
 const canvas = document.getElementById('confetti-canvas');
 const ctx = canvas.getContext('2d');
 function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -498,32 +610,32 @@ let confettiPieces = [];
 const confettiColors = ['#ff9fc0','#e8699a','#ffe9ad','#d9bdff','#ffffff','#ffc9dd'];
 
 function burstConfetti(){
-  confettiPieces = [];
-  for(let i=0;i<160;i++){
+  for(let i=0;i<140;i++){
     confettiPieces.push({
-      x: canvas.width/2 + rand(-40,40),
-      y: canvas.height/2,
-      vx: rand(-6,6),
-      vy: rand(-9,-2),
+      x: canvas.width/2 + rand(-50,50),
+      y: canvas.height/2 + rand(-20,20),
+      vx: rand(-6.5,6.5),
+      vy: rand(-9.5,-2),
       size: rand(4,9),
       color: confettiColors[Math.floor(rand(0,confettiColors.length))],
       rot: rand(0,360),
-      vr: rand(-8,8),
+      vr: rand(-9,9),
       shape: Math.random() > 0.5 ? 'rect' : 'heart',
-      gravity: rand(0.15,0.28)
+      gravity: rand(0.15,0.28),
+      drag: rand(0.988,0.996)
     });
   }
-  animateConfetti();
+  if(!confettiRunning){ confettiRunning = true; animateConfetti(); }
 }
+let confettiRunning = false;
 function animateConfetti(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  let alive = false;
   confettiPieces.forEach(p=>{
     p.vy += p.gravity;
+    p.vx *= p.drag;
     p.x += p.vx;
     p.y += p.vy;
     p.rot += p.vr;
-    if(p.y < canvas.height + 20) alive = true;
     ctx.save();
     ctx.translate(p.x,p.y);
     ctx.rotate(p.rot * Math.PI/180);
@@ -536,17 +648,15 @@ function animateConfetti(){
     }
     ctx.restore();
   });
-  if(alive){
+  confettiPieces = confettiPieces.filter(p=> p.y < canvas.height + 30);
+  if(confettiPieces.length){
     requestAnimationFrame(animateConfetti);
   } else {
     ctx.clearRect(0,0,canvas.width,canvas.height);
+    confettiRunning = false;
   }
 }
 
-/* ---------------- Soft synthesized background music ---------------- */
-/* No external audio file is loaded — a gentle ambient pad is generated
-   in the browser with the Web Audio API so the page stays self-contained.
-   It never autoplays; it only starts after the listener taps the button. */
 let audioCtx = null;
 let musicNodes = null;
 let isPlaying = false;
@@ -558,7 +668,7 @@ function buildPad(){
   master.connect(ctx.destination);
   master.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 1.2);
 
-  const notes = [261.63, 329.63, 392.00, 523.25]; // soft C major pad
+  const notes = [261.63, 329.63, 392.00, 523.25];
   const oscs = [];
   notes.forEach((freq, idx)=>{
     const osc = ctx.createOscillator();

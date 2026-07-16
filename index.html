@@ -329,44 +329,6 @@ p {
     transform: translateX(-50%) translateY(0);
 }
 
-/* Music Player */
-#music-player {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 30px;
-    padding: 10px 15px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 20;
-    box-shadow: var(--glass-shadow);
-}
-.music-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--coffee-brown);
-    outline: none;
-    transition: transform 0.2s;
-}
-.music-btn:hover { transform: scale(1.1); }
-
-/* Start Music Overlay */
-#music-start-overlay {
-    position: fixed;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 50;
-    display: none;
-}
-
 /* Neon Text */
 .neon-text {
     color: var(--coffee-brown);
@@ -402,14 +364,6 @@ p {
 <canvas id="fx-canvas"></canvas>
 
 <div id="compliment-toast" class="compliment-toast"></div>
-
-<div id="music-player">
-    <button id="play-pause-btn" class="music-btn">⏸️</button>
-    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5" style="width: 60px;">
-</div>
-<div id="music-start-overlay">
-    <button id="start-music-btn" class="glowing-btn">🎵 Tap To Start Music</button>
-</div>
 
 <div id="ui-layer">
 
@@ -504,6 +458,32 @@ function resizeCanvas() {
 }
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
+
+// --- Audio Management (Invisible Autoplay Handling) ---
+bgMusic.volume = 0.5;
+
+function tryPlayMusic() {
+    const playPromise = bgMusic.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            // Autoplay blocked by browser. It will start on the first click.
+        });
+    }
+}
+
+// Attempt to play on load
+window.addEventListener('DOMContentLoaded', tryPlayMusic);
+window.addEventListener('load', tryPlayMusic);
+
+// Browsers block audio until the user interacts with the document.
+// This ensures the music starts seamlessly the moment they click anywhere (like the "Continue" button).
+const startAudioOnInteraction = () => {
+    if (bgMusic.paused) {
+        bgMusic.play();
+    }
+};
+document.body.addEventListener('click', startAudioOnInteraction, { once: true });
+document.body.addEventListener('touchstart', startAudioOnInteraction, { once: true });
 
 // --- Screen Management ---
 function switchScreen(hideId, showId) {
@@ -610,62 +590,6 @@ document.getElementById('coffee-trigger').addEventListener('click', () => {
             `;
         }, 1000);
     }
-});
-
-// --- Audio Management ---
-const playPauseBtn = document.getElementById('play-pause-btn');
-const volSlider = document.getElementById('volume-slider');
-const startMusicOverlay = document.getElementById('music-start-overlay');
-const startMusicBtn = document.getElementById('start-music-btn');
-
-bgMusic.volume = 0.5;
-
-function tryPlayMusic() {
-    const playPromise = bgMusic.play();
-    if (playPromise !== undefined) {
-        playPromise.then(_ => {
-            playPauseBtn.innerHTML = "⏸️";
-            startMusicOverlay.style.display = 'none';
-        }).catch(error => {
-            // Browser blocked autoplay
-            startMusicOverlay.style.display = 'block';
-            playPauseBtn.innerHTML = "▶️";
-        });
-    }
-}
-
-// Attempt to play on load
-window.addEventListener('DOMContentLoaded', tryPlayMusic);
-window.addEventListener('load', tryPlayMusic);
-
-// Also attempt on first interaction as a fallback if autoplay blocked
-document.body.addEventListener('click', () => {
-    if (bgMusic.paused) {
-        tryPlayMusic();
-    }
-}, { once: true });
-
-startMusicBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    bgMusic.play();
-    playPauseBtn.innerHTML = "⏸️";
-    startMusicOverlay.style.display = 'none';
-});
-
-playPauseBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (bgMusic.paused) {
-        bgMusic.play();
-        playPauseBtn.innerHTML = "⏸️";
-    } else {
-        bgMusic.pause();
-        playPauseBtn.innerHTML = "▶️";
-    }
-});
-
-volSlider.addEventListener('input', (e) => {
-    e.stopPropagation();
-    bgMusic.volume = e.target.value;
 });
 
 // --- DOM Floating Background Elements (CSS based) ---

@@ -2,59 +2,117 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Diku ❤️ Gayatri</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#ff9ecf,#ffd6e7);overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:100vh}
-.card{background:#fff8fc;border-radius:20px;padding:20px;max-width:420px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2);position:relative;z-index:2}
-.photos{display:flex;gap:10px;justify-content:center;margin-bottom:15px}
-.photos img{width:140px;height:140px;object-fit:cover;border-radius:50%;border:5px solid #ff5c93}
-h1{color:#e91e63}
-button{padding:12px 25px;font-size:18px;border:none;border-radius:30px;cursor:pointer;margin:10px}
-#yes{background:#ff4081;color:#fff}
-#no{background:#eee;position:fixed}
-#msg{font-size:22px;color:#d81b60;font-weight:bold;margin-top:15px}
-.heart{position:fixed;color:#ff2d75;animation:up 6s linear forwards;font-size:22px;pointer-events:none}
-@keyframes up{from{transform:translateY(100vh)}to{transform:translateY(-120px);opacity:0}}
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#ffb6d5,#ffd7e8,#ffc4d6);
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+.card{
+width:min(92vw,460px);
+padding:24px;
+border-radius:28px;
+background:rgba(255,255,255,.18);
+backdrop-filter:blur(14px);
+box-shadow:0 10px 40px rgba(0,0,0,.25);
+text-align:center;
+color:#fff;
+position:relative;
+z-index:2;
+}
+.photos{display:flex;justify-content:center;gap:16px}
+.photos img{
+width:130px;height:130px;object-fit:cover;border-radius:50%;
+border:5px solid #ff4f8b;
+animation:beat 1.4s infinite;
+}
+@keyframes beat{50%{transform:scale(1.08)}}
+h1{margin:16px 0 4px;color:#fff}
+#type{font-size:28px;font-weight:bold;min-height:70px}
+button{
+padding:12px 26px;border:none;border-radius:30px;
+font-size:18px;cursor:pointer;margin:10px}
+#yes{background:#ff4f8b;color:#fff}
+#no{background:#333;color:#fff;position:fixed}
+#letter{
+display:none;
+margin-top:18px;
+padding:15px;
+border-radius:16px;
+background:rgba(255,255,255,.2);
+}
+.petal,.heart{
+position:fixed;
+pointer-events:none;
+animation:fall linear forwards;
+}
+@keyframes fall{
+from{transform:translateY(-10vh) rotate(0)}
+to{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
 </style>
 </head>
 <body>
 <div class="card">
 <div class="photos">
-<img src="WhatsApp Image 2026-07-16 at 23.46.08.jpeg" alt="Diku">
-<img src="WhatsApp Image 2026-07-16 at 23.46.08 (1).jpeg" alt="Gayatri">
+<img src="WhatsApp Image 2026-07-16 at 23.46.08.jpeg">
+<img src="WhatsApp Image 2026-07-16 at 23.46.08 (1).jpeg">
 </div>
 <h1>Diku ❤️ Gayatri</h1>
-<h2>Gayatri, Do You Love Me? ❤️</h2>
+<div id="type"></div>
 <button id="yes">Yes ❤️</button>
 <button id="no">No 💔</button>
-<div id="msg"></div>
-<audio id="music" autoplay loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+
+<div id="letter">
+<h2>💌 Dear Gayatri</h2>
+<p>Every moment with you feels special. Your smile brightens my day and your kindness inspires me. I don't know what the future holds, but I would love the chance to walk through it with you.</p>
+<p><b>Forever Yours,<br>Diku ❤️</b></p>
 </div>
+</div>
+
 <script>
+const text="Gayatri, Do You Love Me? ❤️";
+let i=0;
+(function type(){
+ if(i<=text.length){
+   document.getElementById("type").textContent=text.slice(0,i++);
+   setTimeout(type,80);
+ }
+})();
 const no=document.getElementById("no");
-no.addEventListener("mouseover",move);
-no.addEventListener("click",move);
+const msgs=["Really? 🥺","Think again 💕","Please don't 😭","One more chance ❤️"];
+let idx=0;
 function move(){
- no.style.left=Math.random()*(window.innerWidth-120)+"px";
- no.style.top=Math.random()*(window.innerHeight-60)+"px";
+ no.style.left=Math.random()*(innerWidth-120)+"px";
+ no.style.top=Math.random()*(innerHeight-60)+"px";
+ no.textContent=msgs[idx++%msgs.length];
 }
+no.onmouseover=move;
+no.onclick=move;
+
 document.getElementById("yes").onclick=()=>{
- document.getElementById("msg").innerHTML="💖 Yay! Thank you Gayatri! Forever Yours, Diku 💖";
- for(let i=0;i<150;i++)setTimeout(makeHeart,i*30);
+ document.getElementById("letter").style.display="block";
+ for(let j=0;j<220;j++)setTimeout(spawn,j*18);
+};
+function spawn(){
+ const e=document.createElement("div");
+ e.className=Math.random()>.5?"heart":"petal";
+ e.textContent=e.className=="heart"?"❤️":"🌸";
+ e.style.left=Math.random()*100+"vw";
+ e.style.fontSize=(18+Math.random()*20)+"px";
+ e.style.animationDuration=(4+Math.random()*4)+"s";
+ document.body.appendChild(e);
+ setTimeout(()=>e.remove(),8000);
 }
-function makeHeart(){
- const h=document.createElement("div");
- h.className="heart";
- h.textContent="❤️";
- h.style.left=Math.random()*100+"vw";
- h.style.fontSize=(18+Math.random()*25)+"px";
- document.body.appendChild(h);
- setTimeout(()=>h.remove(),6000);
-}
-setInterval(makeHeart,350);
+setInterval(spawn,350);
 </script>
 </body>
 </html>

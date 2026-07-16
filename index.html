@@ -392,7 +392,7 @@ p {
 </head>
 <body>
 
-<audio id="bg-music" loop>
+<audio id="bg-music" loop autoplay>
     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
 </audio>
 
@@ -404,7 +404,7 @@ p {
 <div id="compliment-toast" class="compliment-toast"></div>
 
 <div id="music-player">
-    <button id="play-pause-btn" class="music-btn">🎵</button>
+    <button id="play-pause-btn" class="music-btn">⏸️</button>
     <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5" style="width: 60px;">
 </div>
 <div id="music-start-overlay">
@@ -627,15 +627,20 @@ function tryPlayMusic() {
             playPauseBtn.innerHTML = "⏸️";
             startMusicOverlay.style.display = 'none';
         }).catch(error => {
+            // Browser blocked autoplay
             startMusicOverlay.style.display = 'block';
             playPauseBtn.innerHTML = "▶️";
         });
     }
 }
 
-// Attempt autoplay on first user interaction
+// Attempt to play on load
+window.addEventListener('DOMContentLoaded', tryPlayMusic);
+window.addEventListener('load', tryPlayMusic);
+
+// Also attempt on first interaction as a fallback if autoplay blocked
 document.body.addEventListener('click', () => {
-    if (bgMusic.paused && !startMusicOverlay.style.display.includes('block')) {
+    if (bgMusic.paused) {
         tryPlayMusic();
     }
 }, { once: true });

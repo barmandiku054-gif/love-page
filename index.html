@@ -3,124 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diku & Gayatri | Wedding Invitation</title>
+    <title>Diku & Gayatri | A Royal Wedding Invitation</title>
     <style>
-        :root {
-            --deep-maroon: #4a0404;
-            --gold: #d4af37;
-            --cream: #fffdd0;
-            --soft-pink: #ffb6c1;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: 'Dancing Script', cursive, sans-serif;
-            background-color: var(--deep-maroon);
-            color: var(--cream);
-            overflow-x: hidden;
-        }
+        :root { --maroon: #4a0404; --gold: #d4af37; --cream: #fffdd0; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--maroon); color: var(--cream); font-family: 'Playfair Display', serif; overflow: hidden; }
 
         /* Loading Screen */
-        #loader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--deep-maroon);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
+        #loader { position: fixed; inset: 0; background: var(--maroon); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; transition: opacity 1s; }
+        .progress-bar { width: 50%; height: 4px; background: #333; margin-top: 20px; border-radius: 2px; }
+        #progress { width: 0%; height: 100%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
 
-        /* Basic Styles for Pages */
-        .page {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            position: absolute;
-            width: 100%;
-        }
+        /* Pages */
+        .page { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; }
+        .active { display: flex; animation: fadeIn 1s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .active { opacity: 1; position: relative; }
+        h1 { font-family: 'Dancing Script', cursive; color: var(--gold); font-size: 3rem; margin-bottom: 20px; }
+        .card { border: 2px solid var(--gold); padding: 50px; background: rgba(0,0,0,0.2); border-radius: 20px; backdrop-filter: blur(5px); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        button { background: transparent; border: 2px solid var(--gold); color: var(--gold); padding: 15px 30px; cursor: pointer; font-size: 1.2rem; transition: 0.3s; margin-top: 30px; border-radius: 5px; }
+        button:hover { background: var(--gold); color: var(--maroon); }
 
-        button {
-            background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            padding: 15px 30px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-
-        button:hover { background: var(--gold); color: var(--deep-maroon); }
-
-        /* Card Style */
-        .invitation-card {
-            border: 5px solid var(--gold);
-            padding: 40px;
-            background: rgba(74, 4, 4, 0.8);
-            border-radius: 20px;
-        }
+        #fireworks { position: fixed; inset: 0; z-index: -1; }
     </style>
 </head>
 <body>
 
-    <div id="loader">
-        <p>Something Beautiful is on the Way...</p>
-        <div id="progress-bar" style="width: 50%; height: 10px; background: white;"><div id="fill" style="width: 0%; height: 100%; background: var(--gold);"></div></div>
+<div id="loader">
+    <h1>Something Beautiful is on the Way...</h1>
+    <div class="progress-bar"><div id="progress"></div></div>
+</div>
+
+<canvas id="fireworks"></canvas>
+
+<!-- Pages Container -->
+<div id="pages-container">
+    <div class="page active" id="p1">
+        <h1>"Two hearts, two dreams, one beautiful journey."</h1>
+        <button onclick="next()">Enter</button>
     </div>
-
-    <div id="content" style="display:none;">
-        <div class="page active" id="page1">
-            <h1>Two hearts, two dreams, one beautiful journey.</h1>
-            <button onclick="nextPage()">Enter</button>
-        </div>
-        
-        <!-- Additional pages would follow structure of page 1 -->
-        
-        <div class="page" id="page8">
-            <div class="invitation-card">
-                <h2>Diku Barman & Gayatri</h2>
-                <p>Wedding Date: 03 / 05 / 2028</p>
-                <p>Venue: Sarthebari Palla Satra</p>
-                <p>Contact: 6001808024</p>
-            </div>
-            <div id="surprise" style="margin-top: 20px; font-size: 1.5rem;">
-                "Thank You for Being a Part of Our Special Day!"
-            </div>
+    <div class="page" id="p2">
+        <h1>"With the blessings of our families, we are starting a new chapter of our lives."</h1>
+        <button onclick="next()">Continue</button>
+    </div>
+    <div class="page" id="p3">
+        <h1>"We would be honored if you join us on our special day."</h1>
+        <button onclick="next()">Continue</button>
+    </div>
+    <div class="page" id="p4">
+        <h1>"Your presence will make our happiness complete."</h1>
+        <button onclick="next()">Continue</button>
+    </div>
+    <div class="page" id="p5">
+        <h1>Save the Date</h1>
+        <h2>03 / 05 / 2028</h2>
+        <div id="countdown" style="font-size: 2rem; color: var(--gold); margin: 20px 0;"></div>
+        <button onclick="next()">Continue</button>
+    </div>
+    <div class="page" id="p6">
+        <h1>Venue</h1>
+        <h2 style="font-size: 2rem;">Sarthebari Palla Satra</h2>
+        <button onclick="next()">Continue</button>
+    </div>
+    <div class="page" id="p7">
+        <h1>With Love</h1>
+        <h1 style="font-size: 4rem;">Diku Barman ❤️ Gayatri</h1>
+        <button onclick="next()">View Invitation Card</button>
+    </div>
+    <div class="page" id="p8">
+        <div class="card">
+            <h2>Diku Barman & Gayatri</h2>
+            <p>03 / 05 / 2028 | Sarthebari Palla Satra</p>
+            <p>Contact: 6001808024</p>
+            <h1 style="margin-top: 40px; font-size: 2rem;">"Thank You for Being a Part of Our Special Day!"</h1>
         </div>
     </div>
+</div>
 
-    <script>
-        // Simple script to handle flow
-        window.onload = () => {
-            let width = 0;
-            let id = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(id);
-                    document.getElementById('loader').style.display = 'none';
-                    document.getElementById('content').style.display = 'block';
-                } else {
-                    width++;
-                    document.getElementById('fill').style.width = width + '%';
-                }
-            }, 30);
-        };
-
-        function nextPage() {
-            // Logic to toggle 'active' class between pages
-            alert("This is a template structure. The full animation logic for all 8 pages would be initialized here.");
+<script>
+    // Loading Screen
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 2;
+        document.getElementById('progress').style.width = progress + '%';
+        if (progress >= 100) {
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => document.getElementById('loader').style.display = 'none', 1000);
+            clearInterval(interval);
         }
-    </script>
+    }, 50);
+
+    // Navigation
+    let current = 1;
+    function next() {
+        document.getElementById('p' + current).classList.remove('active');
+        current++;
+        if (current <= 8) {
+            document.getElementById('p' + current).classList.add('active');
+        }
+        if (current === 8) triggerFireworks();
+    }
+
+    // Countdown
+    setInterval(() => {
+        const dest = new Date('May 3, 2028').getTime();
+        const now = new Date().getTime();
+        const diff = dest - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('countdown').innerText = days + " Days to Go!";
+    }, 1000);
+
+    // Fireworks
+    function triggerFireworks() {
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        // Simple animation loop
+        function draw() {
+            ctx.fillStyle = "rgba(74, 4, 4, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#d4af37";
+            ctx.beginPath();
+            ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, 2, 0, Math.PI * 2);
+            ctx.fill();
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+</script>
 </body>
 </html>

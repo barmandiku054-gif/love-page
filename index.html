@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="as">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diku & Gayatri | A Royal Wedding Invitation</title>
+    <title>দীকু আৰু গায়ত্ৰী | বিবাহৰ নিমন্ত্ৰণী পত্ৰ</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Dancing+Script:wght@700&display=swap');
 
         :root {
             --deep-maroon: #2b0202;
@@ -27,7 +27,7 @@
             height: 100%;
             background: radial-gradient(circle at center, var(--maroon-light) 0%, var(--deep-maroon) 100%);
             color: var(--cream);
-            font-family: 'Playfair Display', serif;
+            font-family: 'Tiro Bangla', serif;
             overflow: hidden;
             user-select: none;
             -webkit-user-select: none;
@@ -67,15 +67,14 @@
 
         /* Typography */
         h1, h2, h3 {
-            font-family: 'Dancing Script', cursive;
             color: var(--gold);
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-            font-weight: 700;
+            font-weight: 400;
         }
 
         .cursive-title {
             font-size: 3.5rem;
-            line-height: 1.2;
+            line-height: 1.3;
             margin-bottom: 20px;
             text-align: center;
             padding: 0 20px;
@@ -93,7 +92,7 @@
             text-align: center;
             max-width: 800px;
             padding: 0 30px;
-            line-height: 1.5;
+            line-height: 1.6;
             color: var(--cream);
             opacity: 0;
             transform: translateY(30px);
@@ -146,11 +145,10 @@
             background: transparent;
             border: 2px solid var(--gold);
             color: var(--gold);
-            padding: 15px 40px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            padding: 12px 35px;
+            font-family: 'Tiro Bangla', serif;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
             border-radius: 50px;
             cursor: pointer;
             position: relative;
@@ -168,7 +166,7 @@
             transform: scale(1.05);
         }
 
-        /* Ring / Heart Animation */
+        /* Ring Animation */
         .ring-container {
             font-size: 4rem;
             animation: pulse 2s infinite alternate;
@@ -246,7 +244,7 @@
             font-size: 3rem;
             color: var(--gold);
             margin: 20px 0;
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Tiro Bangla', serif;
         }
 
         .details-grid {
@@ -254,7 +252,7 @@
             grid-template-columns: 1fr;
             gap: 20px;
             margin-top: 30px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--cream);
             letter-spacing: 1px;
         }
@@ -282,7 +280,7 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
         .time-box span { display: block; font-size: 2.5rem; font-family: 'Dancing Script', cursive; color: var(--gold); }
-        .time-box label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--cream); }
+        .time-box label { font-size: 1rem; color: var(--cream); margin-top: 5px; display: block;}
 
         /* Random Quote */
         #quote-overlay {
@@ -291,7 +289,7 @@
             width: 100%;
             text-align: center;
             font-style: italic;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--soft-pink);
             opacity: 0;
             transition: opacity 2s ease;
@@ -337,7 +335,7 @@
         }
         #music-controls:hover #volume-slider { opacity: 1; }
 
-        /* Floating Hearts Mouse */
+        /* Floating Hearts */
         .mouse-heart {
             position: absolute;
             font-size: 20px;
@@ -354,7 +352,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             .cursive-title { font-size: 2.8rem; }
-            .text-content { font-size: 1.8rem; }
+            .text-content { font-size: 1.6rem; }
             .groom-bride { font-size: 2.5rem; }
             #countdown-container { gap: 10px; flex-wrap: wrap; justify-content: center; }
             .time-box { min-width: 70px; padding: 10px; }
@@ -365,7 +363,9 @@
 </head>
 <body>
 
-    <!-- Background Audio -->
+    <!-- Background Audio 
+         আপুনি ইয়াত আপোনাৰ প্ৰিয় আৱহ সংগীত (যেনে জুবিন গাৰ্গৰ কোনো ৰোমান্টিক সুৰ) ব্যৱহাৰ কৰিব পাৰিব।
+         কেৱল src ৰ লিংকটো সলনি কৰি দিব। -->
     <audio id="bg-music" loop>
         <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_febc508520.mp3" type="audio/mpeg">
     </audio>
@@ -385,7 +385,7 @@
     <!-- 1. Loading Screen -->
     <div id="loader" class="screen">
         <div class="loading-flower"></div>
-        <h2 style="font-size: 2rem; color: var(--soft-pink);">Something Beautiful is on the Way...</h2>
+        <h2 style="font-size: 2rem; color: var(--soft-pink);">এক সুন্দৰ ক্ষণ আগবাঢ়ি আহিছে...</h2>
         <div class="progress-container">
             <div id="progress-bar"></div>
         </div>
@@ -393,10 +393,10 @@
 
     <!-- 2. Welcome Screen -->
     <div id="welcome-screen" class="screen hidden">
-        <h1 class="cursive-title" style="font-size: 4rem;">You are Invited to</h1>
-        <p class="subtitle">OUR WEDDING CEREMONY</p>
+        <h1 class="cursive-title" style="font-size: 3.5rem;">আপোনাক সন্মানেৰে নিমন্ত্ৰণ জনোৱা হ'ল</h1>
+        <p class="subtitle">আমাৰ বিবাহ অনুষ্ঠানলৈ</p>
         <div class="ring-container" id="magic-ring">💍</div>
-        <button class="glowing-btn" onclick="startJourney()">Open Invitation</button>
+        <button class="glowing-btn" onclick="startJourney()">নিমন্ত্ৰণী পত্ৰ খোলক</button>
     </div>
 
     <!-- Multi-Page Invitation Story -->
@@ -404,87 +404,86 @@
         
         <!-- Page 1 -->
         <div class="page" id="page-1">
-            <h1 class="text-content">"Two hearts, two dreams, <br>one beautiful journey."</h1>
-            <button class="glowing-btn" onclick="nextPage(1)">Continue</button>
+            <h1 class="text-content">"দুখন হৃদয়, দুটা সপোন, <br>এক ধুনীয়া যাত্ৰা।"</h1>
+            <button class="glowing-btn" onclick="nextPage(1)">আগুৱাই যাওক</button>
         </div>
 
         <!-- Page 2 -->
         <div class="page" id="page-2">
-            <h1 class="text-content">"With the blessings of our families, <br>we are starting a new chapter of our lives."</h1>
-            <button class="glowing-btn" onclick="nextPage(2)">Continue</button>
+            <h1 class="text-content">"পৰিয়ালৰ আশীৰ্বাদ শিৰত লৈ, <br>আমি আমাৰ জীৱনৰ এক নতুন অধ্যায় আৰম্ভ কৰিবলৈ ওলাইছো।"</h1>
+            <button class="glowing-btn" onclick="nextPage(2)">আগুৱাই যাওক</button>
         </div>
 
         <!-- Page 3 -->
         <div class="page" id="page-3">
-            <h1 class="text-content">"We would be honored if you <br>join us on our special day."</h1>
-            <button class="glowing-btn" onclick="nextPage(3)">Continue</button>
+            <h1 class="text-content">"আমাৰ এই বিশেষ দিনটোত আপোনাৰ উপস্থিতি <br>আমাৰ বাবে অতি আনন্দৰ বিষয় হ'ব।"</h1>
+            <button class="glowing-btn" onclick="nextPage(3)">আগুৱাই যাওক</button>
         </div>
 
         <!-- Page 4 -->
         <div class="page" id="page-4">
-            <h1 class="text-content">"Your presence will make <br>our happiness complete."</h1>
-            <button class="glowing-btn" onclick="nextPage(4)">Continue</button>
+            <h1 class="text-content">"আপোনাৰ উপস্থিতিয়ে আমাৰ <br>আনন্দ সম্পূৰ্ণ কৰিব।"</h1>
+            <button class="glowing-btn" onclick="nextPage(4)">আগুৱাই যাওক</button>
         </div>
 
         <!-- Page 5 (Save the Date & Countdown) -->
         <div class="page" id="page-5">
-            <h1 class="cursive-title" style="font-size: 4.5rem;">Save the Date</h1>
-            <h2 style="font-size: 3rem; color: var(--cream); letter-spacing: 5px;">03 / 05 / 2028</h2>
+            <h1 class="cursive-title" style="font-size: 4.5rem;">দিনটো মনত ৰাখিব</h1>
+            <h2 style="font-size: 3rem; color: var(--cream); letter-spacing: 5px; font-family: 'Dancing Script', cursive;">03 / 05 / 2028</h2>
             
             <div id="countdown-container">
-                <div class="time-box"><span id="cd-days">00</span><label>Days</label></div>
-                <div class="time-box"><span id="cd-hours">00</span><label>Hours</label></div>
-                <div class="time-box"><span id="cd-mins">00</span><label>Mins</label></div>
-                <div class="time-box"><span id="cd-secs">00</span><label>Secs</label></div>
+                <div class="time-box"><span id="cd-days">00</span><label>দিন</label></div>
+                <div class="time-box"><span id="cd-hours">00</span><label>ঘণ্টা</label></div>
+                <div class="time-box"><span id="cd-mins">00</span><label>মিনিট</label></div>
+                <div class="time-box"><span id="cd-secs">00</span><label>ছেকেণ্ড</label></div>
             </div>
 
-            <button class="glowing-btn" onclick="nextPage(5)">Continue</button>
+            <button class="glowing-btn" onclick="nextPage(5)">আগুৱাই যাওক</button>
         </div>
 
         <!-- Page 6 -->
         <div class="page" id="page-6">
-            <h2 class="subtitle" style="color: var(--gold); font-size: 2rem;">VENUE</h2>
-            <h1 class="text-content" style="font-size: 3.5rem;">Sarthebari Palla Satra</h1>
-            <button class="glowing-btn" onclick="nextPage(6)">Continue</button>
+            <h2 class="subtitle" style="color: var(--gold); font-size: 2rem;">বিবাহৰ স্থান</h2>
+            <h1 class="text-content" style="font-size: 3.5rem;">সৰ্থেবাৰী পাল্লা সত্ৰ</h1>
+            <button class="glowing-btn" onclick="nextPage(6)">আগুৱাই যাওক</button>
         </div>
 
         <!-- Page 7 -->
         <div class="page" id="page-7">
-            <h2 class="subtitle">WITH LOVE</h2>
-            <h1 class="text-content" style="font-size: 4rem;">Diku Barman <span style="color:var(--soft-pink);">❤️</span> Gayatri</h1>
-            <button class="glowing-btn" onclick="nextPage(7)">View Details</button>
+            <h2 class="subtitle">মৰমেৰে</h2>
+            <h1 class="text-content" style="font-size: 4rem;">দীকু বৰ্মন <span style="color:var(--soft-pink);">❤️</span> গায়ত্ৰী</h1>
+            <button class="glowing-btn" onclick="nextPage(7)">সবিশেষ চাওক</button>
         </div>
 
         <!-- Page 8 (Final Card & Surprise) -->
         <div class="page" id="page-8">
             <div class="invitation-card">
-                <!-- Simple CSS shapes for floral corners -->
                 <svg class="floral-border tl" viewBox="0 0 100 100"><path fill="var(--gold)" d="M0,0 C50,0 100,50 100,100 L80,100 C80,60 40,20 0,20 Z"/></svg>
                 <svg class="floral-border tr" viewBox="0 0 100 100"><path fill="var(--gold)" d="M0,0 C50,0 100,50 100,100 L80,100 C80,60 40,20 0,20 Z"/></svg>
                 <svg class="floral-border bl" viewBox="0 0 100 100"><path fill="var(--gold)" d="M0,0 C50,0 100,50 100,100 L80,100 C80,60 40,20 0,20 Z"/></svg>
                 <svg class="floral-border br" viewBox="0 0 100 100"><path fill="var(--gold)" d="M0,0 C50,0 100,50 100,100 L80,100 C80,60 40,20 0,20 Z"/></svg>
 
-                <h3 style="font-size: 1.5rem; letter-spacing: 2px;">INVITATION</h3>
-                <div class="groom-bride">Diku Barman<br><span style="font-size: 2rem; color: var(--cream);">&</span><br>Gayatri</div>
+                <h3 style="font-size: 1.8rem; letter-spacing: 2px;">নিমন্ত্ৰণী পত্ৰ</h3>
+                <div class="groom-bride">দীকু বৰ্মন<br><span style="font-size: 2rem; color: var(--cream);">আৰু</span><br>গায়ত্ৰী</div>
                 
                 <div class="details-grid">
                     <div class="detail-item">
                         <i>📅</i>
-                        <strong>03 / 05 / 2028</strong>
+                        <strong style="font-family: 'Dancing Script', cursive; font-size: 1.5rem;">03 / 05 / 2028</strong>
                     </div>
                     <div class="detail-item">
                         <i>📍</i>
-                        <strong>Sarthebari Palla Satra</strong>
+                        <strong>সৰ্থেবাৰী পাল্লা সত্ৰ</strong>
                     </div>
                     <div class="detail-item">
                         <i>📞</i>
-                        <strong>6001808024</strong>
+                        <strong style="font-family: 'Dancing Script', cursive; font-size: 1.5rem;">6001808024</strong>
                     </div>
                 </div>
             </div>
 
-            <h1 id="surprise-text" style="margin-top: 40px; font-size: 2.5rem; opacity: 0; transition: opacity 2s ease 1s;">
-                "Thank You for Being a Part of Our Special Day!"
+            <h1 id="surprise-text" style="margin-top: 40px; font-size: 2.2rem; opacity: 0; transition: opacity 2s ease 1s;">
+                "আমাৰ এই বিশেষ দিনটোৰ অংশ হোৱাৰ বাবে আপোনাক অশেষ ধন্যবাদ!"
             </h1>
         </div>
     </div>
@@ -499,7 +498,6 @@
             const welcomeScreen = document.getElementById('welcome-screen');
             let width = 0;
             
-            // 3 seconds duration (3000ms) - step every 30ms = 100 steps
             const loadingInterval = setInterval(() => {
                 width++;
                 progressBar.style.width = width + '%';
@@ -510,7 +508,7 @@
                         loader.classList.add('hidden');
                         setTimeout(() => {
                             welcomeScreen.classList.remove('hidden');
-                        }, 500); // Wait for loader to fade out
+                        }, 500); 
                     }, 200);
                 }
             }, 30);
@@ -576,14 +574,13 @@
                     if(currentIndex + 1 === 8) {
                         triggerFinalSurprise();
                     }
-                }, 1000); // Wait for fade out
+                }, 1000); 
             }
         }
 
         /* ==============================
            4. Interactive Elements
            ============================== */
-        // Magic Ring Click
         document.getElementById('magic-ring').addEventListener('click', function(e) {
             createMagicBurst(e.clientX, e.clientY);
         });
@@ -610,10 +607,8 @@
             }
         }
 
-        // Floating hearts on mouse move
-        let mouseTimer = null;
         document.addEventListener('mousemove', (e) => {
-            if(Math.random() > 0.9) { // Don't spawn on every single pixel to save performance
+            if(Math.random() > 0.9) { 
                 const heart = document.createElement('div');
                 heart.className = 'mouse-heart';
                 heart.innerHTML = Math.random() > 0.5 ? '❤️' : '✨';
@@ -626,13 +621,13 @@
         });
 
         /* ==============================
-           5. Quotes Rotator
+           5. Quotes Rotator (Assamese)
            ============================== */
         const quotes = [
-            "A lifetime of love begins with a single promise.",
-            "Together is a beautiful place to be.",
-            "Love brought us together, forever will keep us.",
-            "We can't wait to celebrate with you!"
+            "জীৱনজোৰা প্ৰেমৰ আৰম্ভণি হয় এক প্ৰতিশ্ৰুতিৰ পৰা।",
+            "একেগোট হৈ থকাটো এক সুন্দৰ অনুভৱ।",
+            "প্ৰেমে আমাক একগোট কৰিলে, আৰু চিৰদিনলৈ বান্ধি ৰাখিব।",
+            "আপোনাৰ সৈতে এই আনন্দ উদযাপন কৰিবলৈ আমি আগ্ৰহেৰে ৰৈ আছোঁ!"
         ];
         
         function startQuoteRotator() {
@@ -657,7 +652,7 @@
             const now = new Date().getTime();
             const distance = weddingDate - now;
             
-            if (distance < 0) return; // Passed
+            if (distance < 0) return;
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -671,7 +666,7 @@
         }, 1000);
 
         /* ==============================
-           7. Canvas Animations (Petals, Bokeh, Fireworks)
+           7. Canvas Animations 
            ============================== */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
@@ -687,7 +682,6 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Particle Class (Petals & Bokeh)
         class Particle {
             constructor() {
                 this.reset();
@@ -696,7 +690,7 @@
                 this.x = Math.random() * width;
                 this.y = Math.random() * height * 1.5;
                 this.size = Math.random() * 3 + 1;
-                this.speedY = (Math.random() * 1) - 1.5; // Float upwards
+                this.speedY = (Math.random() * 1) - 1.5; 
                 this.speedX = (Math.random() * 1) - 0.5;
                 this.opacity = Math.random() * 0.5 + 0.1;
                 this.type = Math.random() > 0.3 ? 'bokeh' : 'petal';
@@ -710,7 +704,7 @@
 
                 if (this.y < -50 || this.x < -50 || this.x > width + 50) {
                     this.reset();
-                    this.y = height + 50; // Reset to bottom
+                    this.y = height + 50; 
                 }
             }
             draw() {
@@ -721,11 +715,9 @@
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                     ctx.fill();
-                    // Glow
                     ctx.shadowBlur = 10;
                     ctx.shadowColor = '#d4af37';
                 } else {
-                    // Draw Petal
                     ctx.translate(this.x, this.y);
                     ctx.rotate(this.rotation * Math.PI / 180);
                     ctx.fillStyle = '#ffb6c1';
@@ -739,7 +731,6 @@
             }
         }
 
-        // Firework Classes for final page
         class Firework {
             constructor(x, y) {
                 this.x = x;
@@ -774,8 +765,8 @@
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                this.vy += 0.05; // gravity
-                this.alpha -= 0.02; // fade out
+                this.vy += 0.05; 
+                this.alpha -= 0.02; 
             }
             draw() {
                 ctx.save();
@@ -788,24 +779,20 @@
             }
         }
 
-        // Init Particles
         for (let i = 0; i < 80; i++) {
             particles.push(new Particle());
         }
 
-        // Animation Loop
         function animate() {
             ctx.clearRect(0, 0, width, height);
 
-            // Draw Background Particles (Petals/Bokeh)
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
 
-            // Draw Fireworks if Final Page
             if (isFinalPage) {
-                if (Math.random() < 0.03) { // 3% chance per frame to spawn firework
+                if (Math.random() < 0.03) { 
                     fireworks.push(new Firework(Math.random() * width, Math.random() * height * 0.5));
                 }
                 fireworks.forEach((fw, index) => {
@@ -820,12 +807,10 @@
         
         animate();
 
-        // Trigger Surprise
         function triggerFinalSurprise() {
             isFinalPage = true;
             setTimeout(() => {
                 document.getElementById('surprise-text').style.opacity = '1';
-                // Remove quote overlay for clean final screen
                 document.getElementById('quote-overlay').style.display = 'none';
             }, 500);
         }
